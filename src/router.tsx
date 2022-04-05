@@ -1,18 +1,22 @@
 import React from "react";
 import Home from "./pages/home/home";
-import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import BottomNavigation from "./components/bottom-navigation";
+import Settings from "./pages/settings/settings";
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export enum ROUTES {
   HOME = "home",
+  SETTINGS = "settings",
 }
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName={ROUTES.HOME}>
-      <Stack.Screen name={ROUTES.HOME} component={Home} />
-    </Stack.Navigator>
+    <Tab.Navigator tabBar={BottomNavigation}>
+      <Tab.Screen name={ROUTES.HOME} component={Home} />
+      <Tab.Screen name={ROUTES.SETTINGS} component={Settings} />
+    </Tab.Navigator>
   );
 };
 
