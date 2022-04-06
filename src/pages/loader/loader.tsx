@@ -1,10 +1,11 @@
 import {faSword} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {Box, HStack} from "native-base";
+import {Box, HStack, useTheme} from "native-base";
 import React, {useEffect, useRef} from "react";
 import {Animated} from "react-native";
 
 const Loader = () => {
+  const {colors} = useTheme();
   const swordAAnimation = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
   const swordBAnimation = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
 
@@ -39,7 +40,11 @@ const Loader = () => {
     };
   }, [swordAAnimation, swordBAnimation]);
   return (
-    <Box flex={1} bg="#fff" alignItems="center" justifyContent="center">
+    <Box
+      flex={1}
+      bg={colors.primary[100]}
+      alignItems="center"
+      justifyContent="center">
       <HStack>
         <Animated.View // Special animatable View
           style={{

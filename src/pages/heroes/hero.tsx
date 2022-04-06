@@ -1,7 +1,7 @@
 import {Box, Text, useTheme} from "native-base";
 import React from "react";
 
-const Legends = () => {
+const Hero = () => {
   const {colors} = useTheme();
   return (
     <Box
@@ -9,9 +9,9 @@ const Legends = () => {
       bg={colors.primary[100]}
       alignItems="center"
       justifyContent="center">
-      <Text>Legends Screen</Text>
+      <Text>Hero Screen</Text>
     </Box>
   );
 };
 
-export default Legends;
+export default Hero;

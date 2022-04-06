@@ -1,0 +1,41 @@
+import {AFFINITY} from "./affinity";
+import {Item} from "./item";
+import {Level} from "./level";
+import {Mastery} from "./mastery";
+
+export type Hero = {
+  id: string;
+  name: string;
+  race: string;
+  class: string;
+  job?: string;
+  affinity: AFFINITY;
+  xp: number;
+  level: Level;
+  totalHealth: number;
+  currentHealth: number;
+  potency: number;
+  finesse: number;
+  vigor: number;
+  primaryAction: Mastery;
+  secondaryAction: Mastery;
+  innateAbility1: Mastery;
+  innateAbility2: Mastery;
+  masteries: {
+    mastery1?: Mastery;
+    mastery2?: Mastery;
+    mastery3?: Mastery;
+    mastery4?: Mastery;
+    mastery5?: Mastery;
+    mastery6?: Mastery;
+    mastery7?: Mastery;
+    mastery8?: Mastery;
+    mastery9?: Mastery;
+    mastery10?: Mastery;
+  };
+  primaryWeapon: Item;
+  secondaryWeapon: Item;
+  armor: Item[];
+  money: number;
+  inventory: Item[];
+};

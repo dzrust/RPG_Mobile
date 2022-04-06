@@ -1,9 +1,14 @@
-import {Box, Text} from "native-base";
+import {Box, Text, useTheme} from "native-base";
 import React from "react";
 
 const Rules = () => {
+  const {colors} = useTheme();
   return (
-    <Box flex={1} bg="#fff" alignItems="center" justifyContent="center">
+    <Box
+      flex={1}
+      bg={colors.primary[100]}
+      alignItems="center"
+      justifyContent="center">
       <Text>Rules Screen</Text>
     </Box>
   );
