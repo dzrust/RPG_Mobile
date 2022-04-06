@@ -1,4 +1,4 @@
-package com.rpg_mobile.newarchitecture;
+package com.dzrust.rpg_mobile.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.rpg_mobile.BuildConfig;
-import com.rpg_mobile.newarchitecture.components.MainComponentsRegistry;
-import com.rpg_mobile.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.dzrust.rpg_mobile.BuildConfig;
+import com.dzrust.rpg_mobile.newarchitecture.components.MainComponentsRegistry;
+import com.dzrust.rpg_mobile.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

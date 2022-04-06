@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.rpg_mobile">
+  package="com.dzrust.rpg_mobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

@@ -1,32 +1,48 @@
-import React, {FC, useMemo} from "react";
+import React, {FC} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {
   faHome,
-  faSearch,
-  faShoppingCart,
-  faUser,
+  faScroll,
+  faHelmetBattle,
+  faBalanceScale,
+  faRing,
   IconDefinition,
 } from "@fortawesome/pro-solid-svg-icons";
 import {
   faHome as faHomeRegular,
-  faShoppingCart as faShoppingCartRegular,
-  faUser as faUserRegular,
+  faScroll as faScrollRegular,
+  faHelmetBattle as faHelmetBattleRegular,
+  faBalanceScale as faBalanceScaleRegular,
+  faRing as faRingRegular,
 } from "@fortawesome/pro-regular-svg-icons";
-import {Box, Center, HStack, Icon, Pressable, Text} from "native-base";
+import {Box, Center, HStack, Pressable, Text, useTheme} from "native-base";
 import {BottomTabBarProps} from "@react-navigation/bottom-tabs";
+import {ROUTES} from "../models/routes";
 
 const routeIconTable = new Map<
-  string,
+  ROUTES,
   {activeIcon: IconDefinition; inactiveIcon: IconDefinition}
 >();
 
-routeIconTable.set("home", {
+routeIconTable.set(ROUTES.HOME, {
   inactiveIcon: faHomeRegular,
   activeIcon: faHome,
 });
-routeIconTable.set("settings", {
-  inactiveIcon: faUserRegular,
-  activeIcon: faUser,
+routeIconTable.set(ROUTES.LEGENDS, {
+  inactiveIcon: faScrollRegular,
+  activeIcon: faScroll,
+});
+routeIconTable.set(ROUTES.HEROES, {
+  inactiveIcon: faHelmetBattleRegular,
+  activeIcon: faHelmetBattle,
+});
+routeIconTable.set(ROUTES.RULES, {
+  inactiveIcon: faBalanceScaleRegular,
+  activeIcon: faBalanceScale,
+});
+routeIconTable.set(ROUTES.SETTINGS, {
+  inactiveIcon: faRingRegular,
+  activeIcon: faRing,
 });
 
 const BottomNavigation: FC<BottomTabBarProps> = ({
@@ -34,10 +50,20 @@ const BottomNavigation: FC<BottomTabBarProps> = ({
   descriptors,
   navigation,
 }) => {
+  const {colors} = useTheme();
   return (
-    <Box flex={1} bg="white" safeAreaTop width="full" alignSelf="center">
-      <Center flex={1}></Center>
-      <HStack bg="indigo.600" alignItems="center" safeAreaBottom shadow={6}>
+    <Box
+      flex={1}
+      bg={colors.primary[100]}
+      safeAreaTop
+      width="full"
+      alignSelf="center">
+      <Center flex={1} />
+      <HStack
+        bg={colors.primary[900]}
+        alignItems="center"
+        safeAreaBottom
+        shadow={6}>
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];
           const label =
@@ -47,7 +73,7 @@ const BottomNavigation: FC<BottomTabBarProps> = ({
               ? options.title
               : route.name;
           const isFocused = state.index === index;
-          const routeIcon = routeIconTable.get(route.name);
+          const routeIcon = routeIconTable.get(route.name as ROUTES);
 
           const onPress = () => {
             const event = navigation.emit({
@@ -84,22 +110,15 @@ const BottomNavigation: FC<BottomTabBarProps> = ({
               onLongPress={onLongPress}>
               <Center>
                 {routeIcon ? (
-                  <Icon
-                    mb="1"
-                    as={
-                      <FontAwesomeIcon
-                        icon={
-                          isFocused
-                            ? routeIcon.activeIcon
-                            : routeIcon.inactiveIcon
-                        }
-                      />
+                  <FontAwesomeIcon
+                    size={24}
+                    color={colors.light[50]}
+                    icon={
+                      isFocused ? routeIcon.activeIcon : routeIcon.inactiveIcon
                     }
-                    color="white"
-                    size="sm"
                   />
                 ) : null}
-                <Text color="white" fontSize="12">
+                <Text color={colors.light[50]} fontSize="12">
                   {label}
                 </Text>
               </Center>

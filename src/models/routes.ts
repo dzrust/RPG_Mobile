@@ -1,0 +1,11 @@
+export enum ROUTES {
+  HOME = "HOME",
+  LEGENDS = "LEGENDS",
+  LEGEND = "LEGEND",
+  HEROES = "HEROES",
+  HERO = "HERO",
+  RULES = "RULES",
+  SETTINGS = "SETTINGS",
+  LOGIN = "LOGIN",
+  LOADING = "LOADING",
+}

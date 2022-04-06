@@ -1,12 +1,12 @@
 import {Box, Text} from "native-base";
 import React from "react";
 
-const Settings = () => {
+const Rules = () => {
   return (
     <Box flex={1} bg="#fff" alignItems="center" justifyContent="center">
-      <Text>Settings Screen</Text>
+      <Text>Rules Screen</Text>
     </Box>
   );
 };
 
-export default Settings;
+export default Rules;

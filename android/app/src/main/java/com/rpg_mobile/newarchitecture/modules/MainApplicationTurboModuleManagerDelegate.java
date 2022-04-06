@@ -1,4 +1,4 @@
-package com.rpg_mobile.newarchitecture.modules;
+package com.dzrust.rpg_mobile.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

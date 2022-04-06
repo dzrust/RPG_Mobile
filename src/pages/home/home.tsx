@@ -1,11 +1,18 @@
-import { Box } from "native-base";
+import {Box, Text, useTheme} from "native-base";
 import React from "react";
-import {Text, View} from "react-native";
 
 const Home = () => {
+  const {colors} = useTheme();
   return (
-    <Box flex={1} bg="#fff" alignItems="center" justifyContent="center">
-      <Text>Home Screen</Text>
+    <Box
+      flex={1}
+      alignItems="center"
+      justifyContent="center"
+      bg={colors.primary[100]}>
+      <Text>
+        Here is where you can find updates that have been released. Happy
+        gaming!
+      </Text>
     </Box>
   );
 };

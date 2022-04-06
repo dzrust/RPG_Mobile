@@ -1,4 +1,4 @@
-package com.rpg_mobile;
+package com.dzrust.rpg_mobile;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;

@@ -1,4 +1,4 @@
-package com.rpg_mobile.newarchitecture.components;
+package com.dzrust.rpg_mobile.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
