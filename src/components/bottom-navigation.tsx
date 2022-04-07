@@ -53,11 +53,11 @@ const BottomNavigation: FC<BottomTabBarProps> = ({
   const {colors} = useTheme();
   return (
     <Box
-      flex={1}
       bg={colors.primary[100]}
       safeAreaTop
       width="full"
-      alignSelf="center">
+      alignSelf="center"
+      height="20">
       <Center flex={1} />
       <HStack
         bg={colors.primary[900]}

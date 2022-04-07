@@ -10,15 +10,19 @@ import {
   useTheme,
   VStack,
 } from "native-base";
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import {COLLECTIONS} from "../../models/collections";
-import {Hero} from "../../models/hero";
+import {createHero, Hero} from "../../models/hero";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faPlus} from "@fortawesome/pro-solid-svg-icons";
+import {HeroStackParamList} from "./hero-stack";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
 
-const Heroes = () => {
+type Props = NativeStackScreenProps<HeroStackParamList, "heroes">;
+
+const Heroes: FC<Props> = ({navigation}) => {
   const currentUser = auth().currentUser;
   const [heroes, setHeroes] = useState<Hero[]>(() => []);
   const [isLoading, setIsLoading] = useState(() => false);
@@ -42,7 +46,7 @@ const Heroes = () => {
       });
   }, [currentUser]);
   return (
-    <Box bg={colors.primary[100]}>
+    <Box flex={1} bg={colors.primary[100]}>
       <Heading fontSize="xl" p="4" pb="3">
         Heroes
       </Heading>
@@ -55,6 +59,9 @@ const Heroes = () => {
           <Icon color="white" as={<FontAwesomeIcon icon={faPlus} />} size="4" />
         }
         label="Create Hero"
+        onPress={() => {
+          navigation.navigate("hero-builder", {hero: createHero()});
+        }}
       />
       <Skeleton isLoaded={!isLoading} bg={colors.primary[100]}>
         <FlatList
