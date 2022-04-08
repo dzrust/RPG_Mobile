@@ -3,146 +3,146 @@ import {ErrorMessage, Formik} from "formik";
 import {
   Box,
   Button,
+  Divider,
   FormControl,
   Heading,
-  HStack,
   Input,
+  ScrollView,
+  Slider,
+  Text,
   useTheme,
   VStack,
 } from "native-base";
 import React, {FC} from "react";
-import {Hero, heroJobFormModel, HeroJobFormModel} from "../../../models/hero";
-import {Level} from "../../../models/level";
+import {useAppState, useAppDispatch} from "../../../hooks";
+import {heroJobFormModel, HeroJobFormModel} from "../../../models/hero";
+import {getExperienceFromLevel} from "../../../models/level";
+import {setNewHeroJob} from "../../../slices/heroSlice";
 import {HeroBuilderStackParamList} from "./hero-builder-stack";
 
-type Props = NativeStackScreenProps<HeroBuilderStackParamList, "job">;
+type Props = NativeStackScreenProps<HeroBuilderStackParamList, "intro">;
 
-const HeroJob: FC<Props> = ({navigation, route}) => {
+const HeroJob: FC<Props> = ({navigation}) => {
+  const heroStore = useAppState("hero");
+  const dispatch = useAppDispatch();
   const {colors} = useTheme();
-  const {hero} = route.params;
-  const onSubmit = ({heroClass, level, job, experience}: HeroJobFormModel) => {
-    const updatedHero: Hero = {
-      ...hero,
-      heroClass,
-      level: level as Level,
-      job,
-      experience: experience ?? 0,
-    };
-    if (hero.level < 5) {
-      hero.job = undefined;
-    }
-    console.log(updatedHero);
+  const {selectedHero} = heroStore;
+  const onSubmit = (form: HeroJobFormModel) => {
+    dispatch(setNewHeroJob(form));
   };
   return (
-    <Box
-      flex={1}
-      bg={colors.primary[100]}
-      alignItems="center"
-      justifyContent="center"
-      width="100%"
-      height="100%">
-      <Heading>What do you do?</Heading>
-      <Formik
-        initialValues={
-          {
-            heroClass: hero.heroClass,
-            level: parseInt(`${hero.level}`, 10),
-            job: hero.job,
-            experience: parseInt(`${hero.experience}`, 10),
-          } as HeroJobFormModel
-        }
-        validationSchema={heroJobFormModel}
-        onSubmit={onSubmit}>
-        {({values, isSubmitting, handleBlur, handleChange, handleSubmit}) => (
-          <VStack width="90%" mx="3" maxW="300px">
-            <FormControl isRequired>
-              <FormControl.Label
-                _text={{
-                  bold: true,
-                }}>
-                Class
-              </FormControl.Label>
-              <Input
-                onBlur={handleBlur("heroClass")}
-                onChangeText={handleChange("heroClass")}
-                value={values.heroClass}
-              />
-              <ErrorMessage
-                name="heroClass"
-                component={FormControl.ErrorMessage}
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormControl.Label
-                _text={{
-                  bold: true,
-                }}>
-                Level
-              </FormControl.Label>
-              <Input
-                onBlur={handleBlur("level")}
-                onChangeText={handleChange("level")}
-                value={`${values.level}`}
-                keyboardType="numeric"
-              />
-              <ErrorMessage name="level" component={FormControl.ErrorMessage} />
-            </FormControl>
-            <FormControl isRequired>
-              <FormControl.Label
-                _text={{
-                  bold: true,
-                }}>
-                Job
-              </FormControl.Label>
-              <Input
-                onBlur={handleBlur("job")}
-                onChangeText={handleChange("job")}
-                value={values.job}
-              />
-              <ErrorMessage name="job" component={FormControl.ErrorMessage} />
-            </FormControl>
-            <FormControl isRequired>
-              <FormControl.Label
-                _text={{
-                  bold: true,
-                }}>
-                Experience
-              </FormControl.Label>
-              <Input
-                onBlur={handleBlur("experience")}
-                onChangeText={handleChange("experience")}
-                value={`${values.experience}`}
-                keyboardType="numeric"
-              />
-              <ErrorMessage
-                name="experience"
-                component={FormControl.ErrorMessage}
-              />
-            </FormControl>
-            <HStack>
-              <Button
-                onPress={() => navigation.goBack()}
-                mt="5"
-                width="50%"
-                size="lg"
-                colorScheme="danger"
-                disabled={isSubmitting}>
-                Cancel
-              </Button>
+    <ScrollView bg={colors.primary[100]}>
+      <Box
+        flex={1}
+        paddingLeft="8"
+        paddingRight="8"
+        justifyContent="center"
+        alignContent="center"
+        bg={colors.primary[100]}
+        width="100%"
+        height="100%">
+        <Heading mt="8">What do you do?</Heading>
+        <Formik
+          initialValues={
+            {
+              heroClass: selectedHero?.heroClass,
+              job: selectedHero?.job,
+              level: parseInt(`${selectedHero?.level}`, 10),
+            } as HeroJobFormModel
+          }
+          validationSchema={heroJobFormModel}
+          onSubmit={onSubmit}>
+          {({values, isSubmitting, handleBlur, handleChange, handleSubmit}) => (
+            <VStack width="90%" mx="3" maxW="300px">
+              <FormControl>
+                <FormControl.Label
+                  _text={{
+                    bold: true,
+                  }}>
+                  Class
+                </FormControl.Label>
+                <Input
+                  onBlur={handleBlur("heroClass")}
+                  onChangeText={handleChange("heroClass")}
+                  value={values.heroClass}
+                />
+                <ErrorMessage
+                  name="heroClass"
+                  component={FormControl.ErrorMessage}
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormControl.Label
+                  _text={{
+                    bold: true,
+                  }}>
+                  Level ({values.level})
+                </FormControl.Label>
+                <Slider
+                  minValue={1}
+                  maxValue={20}
+                  defaultValue={1}
+                  onChange={(newLevel: number) =>
+                    handleChange("level")(`${Math.floor(newLevel)}`)
+                  }>
+                  <Slider.Track>
+                    <Slider.FilledTrack />
+                  </Slider.Track>
+                  <Slider.Thumb />
+                </Slider>
+                <ErrorMessage
+                  name="level"
+                  component={FormControl.ErrorMessage}
+                />
+              </FormControl>
+              <Text>
+                Experience (
+                {getExperienceFromLevel(parseInt(`${values.level}`, 10))})
+              </Text>
+              <FormControl isDisabled={values.level < 5}>
+                <FormControl.Label
+                  _text={{
+                    bold: true,
+                  }}>
+                  Job (Level 5+)
+                </FormControl.Label>
+                <Input
+                  onBlur={handleBlur("job")}
+                  onChangeText={handleChange("job")}
+                  value={values.job}
+                />
+                <ErrorMessage name="job" component={FormControl.ErrorMessage} />
+              </FormControl>
               <Button
                 onPress={handleSubmit}
-                mt="5"
-                width="50%"
+                mt="8"
+                width="full"
                 size="lg"
                 colorScheme="primary"
                 disabled={isSubmitting}>
                 Next
               </Button>
-            </HStack>
-          </VStack>
-        )}
-      </Formik>
-    </Box>
+              <Divider
+                orientation="horizontal"
+                backgroundColor={colors.primary[600]}
+                thickness="1"
+                marginTop="8"
+                marginBottom="8"
+              />
+              <Button
+                onPress={() => navigation.goBack()}
+                width="full"
+                size="lg"
+                colorScheme="secondary"
+                disabled={isSubmitting}>
+                Back
+              </Button>
+            </VStack>
+          )}
+        </Formik>
+      </Box>
+    </ScrollView>
   );
 };
 

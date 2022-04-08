@@ -3,6 +3,8 @@ import {extendTheme, NativeBaseProvider} from "native-base";
 import React, {useEffect, useState} from "react";
 import auth from "@react-native-firebase/auth";
 import Router from "./router";
+import {Provider} from "react-redux";
+import {store} from "./store";
 
 const config = {
   useSystemColorMode: true,
@@ -32,11 +34,13 @@ const App = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
   return (
-    <NavigationContainer>
-      <NativeBaseProvider theme={customTheme}>
-        <Router appState={appState} />
-      </NativeBaseProvider>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <NativeBaseProvider theme={customTheme}>
+          <Router appState={appState} />
+        </NativeBaseProvider>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

@@ -5,6 +5,11 @@ import {Mastery, masteryFormModel} from "./mastery";
 import * as yup from "yup";
 import {RATING} from "./rating";
 
+export enum GENDER {
+  MALE = "male",
+  FEMALE = "female",
+}
+
 export type Hero = {
   id: string;
   name: string;
@@ -20,10 +25,10 @@ export type Hero = {
   potency: number;
   finesse: number;
   vigor: number;
-  primaryAction: Mastery;
-  secondaryAction: Mastery;
-  innateAbility1: Mastery;
-  innateAbility2: Mastery;
+  primaryMastery: Mastery;
+  secondaryMastery: Mastery;
+  innateMastery1: Mastery;
+  innateMastery2: Mastery;
   masteries: {
     mastery1?: Mastery;
     mastery2?: Mastery;
@@ -64,18 +69,18 @@ export const createHero = (): Hero => ({
   potency: 1,
   finesse: 1,
   vigor: 1,
-  primaryAction: {
+  primaryMastery: {
     name: "",
     description: "",
     affinityStats: [],
   },
-  secondaryAction: {
+  secondaryMastery: {
     name: "",
     description: "",
     affinityStats: [],
   },
-  innateAbility1: {name: "", description: "", affinityStats: []},
-  innateAbility2: {name: "", description: "", affinityStats: []},
+  innateMastery1: {name: "", description: "", affinityStats: []},
+  innateMastery2: {name: "", description: "", affinityStats: []},
   masteries: {},
   primaryWeapon: {
     name: "",
@@ -121,7 +126,6 @@ export const heroJobFormModel = yup.object().shape({
   heroClass: yup.string().required(),
   level: yup.number().oneOf(levelArray).required(),
   job: yup.string(),
-  experience: yup.number().min(0).max(355000),
 });
 
 export interface HeroJobFormModel

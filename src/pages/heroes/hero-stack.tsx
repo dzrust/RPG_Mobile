@@ -3,7 +3,6 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Heroes from "./heroes";
 import Hero from "./hero";
 import HeroBuilderStack from "./hero-builder/hero-builder-stack";
-import {Hero as HeroModel} from "../../models/hero";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +15,7 @@ export enum HEROES_ROUTES {
 export type HeroStackParamList = {
   hero: {id: string};
   heroes: undefined;
-  "hero-builder": {hero: HeroModel};
+  "hero-builder": undefined;
 };
 
 const HeroStack = () => (

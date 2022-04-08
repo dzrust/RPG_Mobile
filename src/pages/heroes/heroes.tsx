@@ -14,7 +14,7 @@ import React, {FC, useEffect, useState} from "react";
 import firestore from "@react-native-firebase/firestore";
 import auth from "@react-native-firebase/auth";
 import {COLLECTIONS} from "../../models/collections";
-import {createHero, Hero} from "../../models/hero";
+import {Hero} from "../../models/hero";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
 import {faPlus} from "@fortawesome/pro-solid-svg-icons";
 import {HeroStackParamList} from "./hero-stack";
@@ -60,7 +60,7 @@ const Heroes: FC<Props> = ({navigation}) => {
         }
         label="Create Hero"
         onPress={() => {
-          navigation.navigate("hero-builder", {hero: createHero()});
+          navigation.navigate("hero-builder");
         }}
       />
       <Skeleton isLoaded={!isLoading} bg={colors.primary[100]}>
