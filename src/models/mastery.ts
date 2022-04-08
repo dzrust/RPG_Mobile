@@ -15,6 +15,12 @@ export type Mastery = {
   description: string;
 };
 
+export const createMastery = (): Mastery => ({
+  name: "",
+  description: "",
+  affinityStats: [],
+});
+
 export const masteryFormModel = yup.object().shape({
   name: yup.string().required(),
   distance: yup.mixed(),

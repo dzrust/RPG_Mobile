@@ -10,7 +10,7 @@ import {
   HeroSkillFormModel,
 } from "../models/hero";
 import {Item} from "../models/item";
-import {getLevelFromExperience, Level} from "../models/level";
+import {getExperienceFromLevel, Level} from "../models/level";
 import {Mastery} from "../models/mastery";
 
 // Define a type for the slice state
@@ -71,13 +71,13 @@ export const heroSlice = createSlice({
       state.selectedHero = updatedHero;
     },
     setNewHeroJob: (state, action: PayloadAction<HeroJobFormModel>) => {
-      const {heroClass, job, experience} = action.payload;
+      const {heroClass, job, level} = action.payload;
       const updatedHero: Hero = {
         ...(state.selectedHero ?? createHero()),
         heroClass,
         job,
-        level: getLevelFromExperience(experience ?? 0) as Level,
-        experience: experience ?? 0,
+        level: level as Level,
+        experience: getExperienceFromLevel(level),
       };
       state.selectedHero = updatedHero;
     },

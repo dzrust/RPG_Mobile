@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {ErrorMessage, Formik} from "formik";
+import {Formik} from "formik";
 import {
   Box,
   Button,
@@ -29,6 +29,7 @@ const HeroJob: FC<Props> = ({navigation}) => {
   const {selectedHero} = heroStore;
   const onSubmit = (form: HeroJobFormModel) => {
     dispatch(setNewHeroJob(form));
+    navigation.navigate("skill");
   };
   return (
     <ScrollView bg={colors.primary[100]}>
@@ -52,7 +53,14 @@ const HeroJob: FC<Props> = ({navigation}) => {
           }
           validationSchema={heroJobFormModel}
           onSubmit={onSubmit}>
-          {({values, isSubmitting, handleBlur, handleChange, handleSubmit}) => (
+          {({
+            values,
+            errors,
+            isSubmitting,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+          }) => (
             <VStack width="90%" mx="3" maxW="300px">
               <FormControl>
                 <FormControl.Label
@@ -66,10 +74,12 @@ const HeroJob: FC<Props> = ({navigation}) => {
                   onChangeText={handleChange("heroClass")}
                   value={values.heroClass}
                 />
-                <ErrorMessage
-                  name="heroClass"
-                  component={FormControl.ErrorMessage}
-                />
+                <FormControl.ErrorMessage
+                  _text={{
+                    fontSize: "xs",
+                  }}>
+                  {errors.heroClass}
+                </FormControl.ErrorMessage>
               </FormControl>
 
               <FormControl>
@@ -80,9 +90,10 @@ const HeroJob: FC<Props> = ({navigation}) => {
                   Level ({values.level})
                 </FormControl.Label>
                 <Slider
+                  colorScheme="secondary"
                   minValue={1}
                   maxValue={20}
-                  defaultValue={1}
+                  defaultValue={values.level}
                   onChange={(newLevel: number) =>
                     handleChange("level")(`${Math.floor(newLevel)}`)
                   }>
@@ -91,10 +102,12 @@ const HeroJob: FC<Props> = ({navigation}) => {
                   </Slider.Track>
                   <Slider.Thumb />
                 </Slider>
-                <ErrorMessage
-                  name="level"
-                  component={FormControl.ErrorMessage}
-                />
+                <FormControl.ErrorMessage
+                  _text={{
+                    fontSize: "xs",
+                  }}>
+                  {errors.level}
+                </FormControl.ErrorMessage>
               </FormControl>
               <Text>
                 Experience (
@@ -112,7 +125,12 @@ const HeroJob: FC<Props> = ({navigation}) => {
                   onChangeText={handleChange("job")}
                   value={values.job}
                 />
-                <ErrorMessage name="job" component={FormControl.ErrorMessage} />
+                <FormControl.ErrorMessage
+                  _text={{
+                    fontSize: "xs",
+                  }}>
+                  {errors.job}
+                </FormControl.ErrorMessage>
               </FormControl>
               <Button
                 onPress={handleSubmit}
