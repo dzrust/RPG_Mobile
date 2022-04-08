@@ -19,6 +19,7 @@ export type HeroBuilderStackParamList = {
   intro: undefined;
   job: undefined;
   skill: undefined;
+  inventory: undefined;
 };
 
 const HeroBuilderStack: FC = () => {

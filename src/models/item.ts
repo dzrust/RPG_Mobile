@@ -12,6 +12,16 @@ export type Item = {
   description: string;
 };
 
+export const createItem = (): Item => ({
+  name: "",
+  equipped: false,
+  rating: RATING.COMMON,
+  affinityStats: [],
+  damage: "",
+  armor: "",
+  description: "",
+});
+
 export const itemFormModel = yup.object().shape({
   name: yup.string().required(),
   equipped: yup.bool(),

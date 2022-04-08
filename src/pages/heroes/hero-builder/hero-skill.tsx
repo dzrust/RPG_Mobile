@@ -29,6 +29,7 @@ const HeroSkill: FC<Props> = ({navigation}) => {
   const {selectedHero} = heroStore;
   const onSubmit = (form: HeroSkillFormModel) => {
     dispatch(setNewHeroSkill(form));
+    navigation.navigate("inventory");
   };
   const masteriesArray = useMemo(() => {
     const masteryArray: string[] = [];
@@ -97,6 +98,7 @@ const HeroSkill: FC<Props> = ({navigation}) => {
                     onBlur={handleBlur("hp")}
                     onChangeText={handleChange("hp")}
                     value={`${values.hp}`}
+                    keyboardType="numeric"
                   />
                   <FormControl.ErrorMessage
                     _text={{

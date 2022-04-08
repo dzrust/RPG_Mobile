@@ -158,11 +158,12 @@ export interface HeroSkillFormModel
   extends yup.InferType<typeof heroSkillFormModel> {}
 
 export const heroInventoryFormModel = yup.object().shape({
+  money: yup.number().required(),
   primaryWeapon: itemFormModel.required(),
   secondaryWeapon: itemFormModel.required(),
   armor: itemFormModel.required(),
-  shield: itemFormModel,
-  inventory: yup.array(itemFormModel),
+  shield: itemFormModel.optional(),
+  inventory: yup.array(itemFormModel.required()),
 });
 
 export interface HeroInventoryFormModel
