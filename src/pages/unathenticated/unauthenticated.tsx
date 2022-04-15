@@ -1,20 +1,13 @@
-import {
-  Alert,
-  Box,
-  Center,
-  CloseIcon,
-  Heading,
-  HStack,
-  IconButton,
-  Text,
-  VStack,
-} from "native-base";
 import React, {useState} from "react";
 import auth from "@react-native-firebase/auth";
 import {
   GoogleSignin,
   GoogleSigninButton,
 } from "@react-native-google-signin/google-signin";
+import {Card, Layout, Text} from "@ui-kitten/components";
+import {pageStyles} from "../../styles/page";
+import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
+import {faExclamation} from "@fortawesome/pro-solid-svg-icons";
 GoogleSignin.configure({
   webClientId:
     "325778762264-56tgqdk9vm7ke0sdvr193cjhkeh6fiit.apps.googleusercontent.com",
@@ -43,51 +36,22 @@ const Unauthenticated = () => {
     }
   };
   return (
-    <Center w="100%">
+    <Layout style={pageStyles.container}>
       {error.length > 0 ? (
-        <Alert w="100%" status="error">
-          <VStack space={2} flexShrink={1} w="100%">
-            <HStack flexShrink={1} space={2} justifyContent="space-between">
-              <HStack space={2} flexShrink={1}>
-                <Alert.Icon mt="1" />
-                <Text fontSize="md" color="coolGray.800">
-                  {error}
-                </Text>
-              </HStack>
-              <IconButton
-                variant="unstyled"
-                icon={<CloseIcon size="3" color="coolGray.600" />}
-              />
-            </HStack>
-          </VStack>
-        </Alert>
+        <Card>
+          <Layout style={{flexDirection: "row"}}>
+            <FontAwesomeIcon icon={faExclamation} />
+            <Text style={pageStyles.paragraph}>{error}</Text>
+          </Layout>
+        </Card>
       ) : null}
-      <Box safeArea p="2" py="8" w="90%" maxW="290">
-        <Heading
-          size="lg"
-          fontWeight="600"
-          color="coolGray.800"
-          _dark={{
-            color: "warmGray.50",
-          }}>
-          Welcome
-        </Heading>
-        <Heading
-          mt="1"
-          _dark={{
-            color: "warmGray.200",
-          }}
-          color="coolGray.600"
-          fontWeight="medium"
-          size="xs">
-          Sign in or Sign up to continue!
-        </Heading>
+      <Text style={pageStyles.heading} category="h1">
+        Welcome
+      </Text>
+      <Text style={pageStyles.paragraph}>Sign in or Sign up to continue!</Text>
 
-        <VStack space={3} mt="5">
-          <GoogleSigninButton disabled={isSigningIn} onPress={onSignIn} />
-        </VStack>
-      </Box>
-    </Center>
+      <GoogleSigninButton disabled={isSigningIn} onPress={onSignIn} />
+    </Layout>
   );
 };
 

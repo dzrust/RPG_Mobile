@@ -1,49 +1,65 @@
-import {Radio, Stack} from "native-base";
+import {Layout, Radio, RadioGroup, Text} from "@ui-kitten/components";
 import React, {FC} from "react";
 import {RATING} from "../models/rating";
+import {linearRadioGroupStyles} from "../styles/linear-radio-group";
+import {pageStyles} from "../styles/page";
 
 type Props = {
   label?: string;
-  name: string;
   rating: string;
   handleChange: (newRating: string) => void;
 };
 
 const RatingRadioGroup: FC<Props> = ({
   label = "Rating",
-  name,
   rating,
   handleChange,
 }) => {
+  const [selectedIndex, setSelectedIndex] = React.useState(() => {
+    switch (rating) {
+      case RATING.COMMON:
+        return 1;
+      case RATING.UNCOMMON:
+        return 2;
+      case RATING.RARE:
+        return 3;
+      case RATING.LEGENDARY:
+        return 4;
+      default:
+        return 0;
+    }
+  });
+  const onUpdate = (index: number) => {
+    setSelectedIndex(index);
+    switch (index) {
+      case 1:
+        handleChange(RATING.COMMON);
+        break;
+      case 2:
+        handleChange(RATING.UNCOMMON);
+        break;
+      case 3:
+        handleChange(RATING.RARE);
+        break;
+      case 4:
+        handleChange(RATING.LEGENDARY);
+        break;
+    }
+  };
   return (
-    <Radio.Group
-      name={name}
-      defaultValue={rating}
-      accessibilityLabel={label}
-      onChange={handleChange}>
-      <Stack
-        direction={{
-          base: "row",
-          md: "row",
-        }}
-        alignItems="center"
-        space={4}
-        w="75%"
-        maxW="300px">
-        <Radio value={RATING.COMMON} colorScheme="red" size="md" my={1}>
-          Common
-        </Radio>
-        <Radio value={RATING.UNCOMMON} colorScheme="red" size="md" my={1}>
-          Uncommon
-        </Radio>
-        <Radio value={RATING.RARE} colorScheme="red" size="md" my={1}>
-          Rare
-        </Radio>
-        <Radio value={RATING.LEGENDARY} colorScheme="red" size="md" my={1}>
-          Legendary
-        </Radio>
-      </Stack>
-    </Radio.Group>
+    <React.Fragment>
+      <Text category="h6" style={pageStyles.paragraph}>
+        {label}
+      </Text>
+      <Layout style={linearRadioGroupStyles.container} level="1">
+        <RadioGroup selectedIndex={selectedIndex} onChange={onUpdate}>
+          <Radio style={linearRadioGroupStyles.radio}>Common</Radio>
+          <Radio style={linearRadioGroupStyles.radio}>Uncommon</Radio>
+          <Radio style={linearRadioGroupStyles.radio}>Rare</Radio>
+          <Radio style={linearRadioGroupStyles.radio}>Legendary</Radio>
+        </RadioGroup>
+      </Layout>
+    </React.Fragment>
   );
 };
 

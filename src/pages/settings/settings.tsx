@@ -1,23 +1,19 @@
-import {Box, Button, Text, useTheme, VStack} from "native-base";
 import React from "react";
 import auth from "@react-native-firebase/auth";
+import {Button, Layout, Text} from "@ui-kitten/components";
+import {pageStyles} from "../../styles/page";
 
 const Settings = () => {
-  const {colors} = useTheme();
   const onSignOut = () => {
     auth().signOut();
   };
   return (
-    <Box
-      flex={1}
-      bg={colors.primary[100]}
-      alignItems="center"
-      justifyContent="center">
-      <VStack>
-        <Text>Settings Screen</Text>
-        <Button onPress={onSignOut}>Sign Out</Button>
-      </VStack>
-    </Box>
+    <Layout style={pageStyles.container}>
+      <Text category="h2" style={pageStyles.heading}>
+        Settings Screen
+      </Text>
+      <Button onPress={onSignOut}>Sign Out</Button>
+    </Layout>
   );
 };
 

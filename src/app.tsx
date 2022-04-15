@@ -1,22 +1,18 @@
 import {NavigationContainer} from "@react-navigation/native";
-import {extendTheme, NativeBaseProvider} from "native-base";
 import React, {useEffect, useState} from "react";
 import auth from "@react-native-firebase/auth";
 import Router from "./router";
 import {Provider} from "react-redux";
 import {store} from "./store";
+import * as eva from "@eva-design/eva";
+import {ApplicationProvider} from "@ui-kitten/components";
 
-const config = {
-  useSystemColorMode: true,
-  initialColorMode: "dark",
-};
 export enum APP_STATE {
   INITIALIZING,
   LOGIN,
   LOGGED_IN,
 }
 
-const customTheme = extendTheme({config});
 const App = () => {
   const [appState, setAppState] = useState(() => APP_STATE.INITIALIZING);
 
@@ -36,9 +32,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <NativeBaseProvider theme={customTheme}>
+        <ApplicationProvider {...eva} theme={eva.light}>
           <Router appState={appState} />
-        </NativeBaseProvider>
+        </ApplicationProvider>
       </NavigationContainer>
     </Provider>
   );

@@ -1,19 +1,18 @@
-import {Box, Text, useTheme} from "native-base";
+import {Layout, Text} from "@ui-kitten/components";
 import React from "react";
+import {pageStyles} from "../../styles/page";
 
 const Home = () => {
-  const {colors} = useTheme();
   return (
-    <Box
-      flex={1}
-      alignItems="center"
-      justifyContent="center"
-      bg={colors.primary[100]}>
-      <Text>
+    <Layout style={pageStyles.container}>
+      <Text category="h2" style={pageStyles.heading}>
+        Home Screen
+      </Text>
+      <Text style={pageStyles.paragraph}>
         Here is where you can find updates that have been released. Happy
         gaming!
       </Text>
-    </Box>
+    </Layout>
   );
 };
 

@@ -1,11 +1,11 @@
 import {faSword} from "@fortawesome/pro-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-native-fontawesome";
-import {Box, HStack, useTheme} from "native-base";
+import {Layout} from "@ui-kitten/components";
 import React, {useEffect, useRef} from "react";
 import {Animated} from "react-native";
+import {pageStyles} from "../../styles/page";
 
 const Loader = () => {
-  const {colors} = useTheme();
   const swordAAnimation = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
   const swordBAnimation = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
 
@@ -40,12 +40,13 @@ const Loader = () => {
     };
   }, [swordAAnimation, swordBAnimation]);
   return (
-    <Box
-      flex={1}
-      bg={colors.primary[100]}
-      alignItems="center"
-      justifyContent="center">
-      <HStack>
+    <Layout
+      style={{
+        ...pageStyles.container,
+        justifyContent: "center",
+        alignContent: "center",
+      }}>
+      <Layout style={{flex: 1, flexDirection: "row"}}>
         <Animated.View // Special animatable View
           style={{
             opacity: swordAAnimation, // Bind opacity to animated value
@@ -58,8 +59,8 @@ const Loader = () => {
           }}>
           <FontAwesomeIcon icon={faSword} size={64} transform={{flipX: true}} />
         </Animated.View>
-      </HStack>
-    </Box>
+      </Layout>
+    </Layout>
   );
 };
 

@@ -1,16 +1,12 @@
-import {Box, Text, useTheme} from "native-base";
+import {Layout, Text} from "@ui-kitten/components";
 import React from "react";
+import {pageStyles} from "../../styles/page";
 
 const Hero = () => {
-  const {colors} = useTheme();
   return (
-    <Box
-      flex={1}
-      bg={colors.primary[100]}
-      alignItems="center"
-      justifyContent="center">
-      <Text>Hero Screen</Text>
-    </Box>
+    <Layout style={pageStyles.container}>
+      <Text style={pageStyles.paragraph}>Hero Screen</Text>
+    </Layout>
   );
 };
 

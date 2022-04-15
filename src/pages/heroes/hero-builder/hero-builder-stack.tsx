@@ -1,8 +1,8 @@
 import React, {FC} from "react";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import HeroIntro from "./hero-intro";
-import HeroJob from "./hero-job";
-import HeroSkill from "./hero-skill";
+// import HeroJob from "./hero-job";
+// import HeroSkill from "./hero-skill";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,8 +26,8 @@ const HeroBuilderStack: FC = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name={HERO_BUILDER_ROUTES.INTRO} component={HeroIntro} />
-      <Stack.Screen name={HERO_BUILDER_ROUTES.JOB} component={HeroJob} />
-      <Stack.Screen name={HERO_BUILDER_ROUTES.SKILL} component={HeroSkill} />
+      {/* <Stack.Screen name={HERO_BUILDER_ROUTES.JOB} component={HeroJob} />
+      <Stack.Screen name={HERO_BUILDER_ROUTES.SKILL} component={HeroSkill} /> */}
     </Stack.Navigator>
   );
 };
